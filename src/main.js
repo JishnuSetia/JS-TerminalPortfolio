@@ -30,7 +30,7 @@ const VFS = {
             },
             '.secret': {
               type: 'file',
-              content: "You found it! The secret to high-performing code is... lots of coffee and persistent debugging. ☕️"
+              content: "🔒 You found the secret file!\n\nEver wanted to hack something? Try running 'hack <target>' (e.g., hack nasa.gov)\n\nPro tip: The secret to high-performing code is... lots of coffee and persistent debugging. ☕️"
             },
             '.bash_history': {
               type: 'file',
@@ -81,7 +81,7 @@ const COMMANDS = {
   help: {
     description: 'List all available commands',
     execute: () => {
-      const commands = Object.keys(COMMANDS).sort();
+      const commands = Object.keys(COMMANDS).filter(cmd => cmd !== 'hack').sort();
       let result = 'Available commands:\n\n';
       commands.forEach(cmd => {
         result += `<span class="command-help">${cmd.padEnd(12)}</span> - ${COMMANDS[cmd].description}\n`;
@@ -304,9 +304,73 @@ const COMMANDS = {
           document.body.setAttribute('data-theme', choice);
         }
         return `Theme changed to: ${choice}`;
-      } else {
-        return `Error: Theme '${choice}' not found. Available themes: ${themes.join(', ')}`;
       }
+    }
+  },
+  hack: {
+    description: '[ REDACTED ]',
+    execute: async (args) => {
+      if (!args[0]) {
+        return 'Usage: hack <target>\nExample: hack nasa.gov';
+      }
+
+      const target = args.join(' ');
+      const output = document.getElementById('output');
+
+      const randomIP = () => `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+      const randomPort = () => Math.floor(Math.random() * 65535);
+      const randomHex = () => Math.random().toString(16).substr(2, 8).toUpperCase();
+
+      const messages = [
+        `<span class="user">[*] Initializing attack vector...</span>`,
+        `<span class="host">[+] Target acquired: ${target}</span>`,
+        `<span class="sep">[~] Resolving DNS... ${randomIP()}</span>`,
+        `<span class="user">[*] Scanning ports: 21, 22, 80, 443, ${randomPort()}</span>`,
+        `<span class="host">[+] Open port detected: 443 (HTTPS)</span>`,
+        `<span class="user">[*] Injecting SSL strip payload...</span>`,
+        `<span class="sep">[~] Bypassing firewall... [OK]</span>`,
+        `<span class="host">[+] Firewall neutralized</span>`,
+        `<span class="user">[*] Enumerating subdomains...</span>`,
+        `<span class="host">[+] Found: admin.${target}, api.${target}, dev.${target}</span>`,
+        `<span class="user">[*] Initiating SQL injection on admin panel...</span>`,
+        `<span class="sep">[~] Payload: ' OR '1'='1' --</span>`,
+        `<span class="host">[+] Authentication bypassed!</span>`,
+        `<span class="user">[*] Escalating privileges to root...</span>`,
+        `<span class="host">[+] ROOT ACCESS GRANTED</span>`,
+        `<span class="user">[*] Dumping database credentials...</span>`,
+        `<span class="sep">[~] DB_USER: admin_${randomHex()}</span>`,
+        `<span class="sep">[~] DB_PASS: ${randomHex()}</span>`,
+        `<span class="host">[+] Credentials extracted successfully</span>`,
+        `<span class="user">[*] Deploying reverse shell...</span>`,
+        `<span class="sep">[~] Listener: ${randomIP()}:${randomPort()}</span>`,
+        `<span class="host">[+] Shell established!</span>`,
+        `<span class="user">[*] Installing backdoor...</span>`,
+        `<span class="host">[+] Backdoor installed at /etc/cron.d/.hidden</span>`,
+        `<span class="user">[*] Covering tracks...</span>`,
+        `<span class="sep">[~] Clearing logs... /var/log/auth.log</span>`,
+        `<span class="sep">[~] Clearing logs... /var/log/syslog</span>`,
+        `<span class="host">[+] Logs cleared</span>`,
+        `<span class="user">[*] Exfiltrating data...</span>`,
+        `<span class="sep">[~] Progress: ████████████████ 100%</span>`,
+        `<span class="host">[+] Data exfiltrated: 420.69 GB</span>`,
+        '',
+        `<span class="command-help">╔═══════════════════════════════════════╗</span>`,
+        `<span class="command-help">║   HACK SUCCESSFUL - SYSTEM PWNED!     ║</span>`,
+        `<span class="command-help">╚═══════════════════════════════════════╝</span>`,
+        '',
+        `<span class="info-label">JK LOL</span> - This is just a fun easter egg 😎`,
+        `<span class="sep">Real hacking requires years of study, not a single command!</span>`
+      ];
+
+      for (let i = 0; i < messages.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50));
+        const line = document.createElement('div');
+        line.innerHTML = messages[i];
+        output.appendChild(line);
+        output.parentElement.scrollTop = output.parentElement.scrollHeight;
+      }
+
+      return '';
     }
   }
 };
