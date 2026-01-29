@@ -10,6 +10,27 @@ const VFS = {
   name: '/',
   type: 'dir',
   children: {
+    special: {
+      type: 'dir',
+      children: {
+        checkOutThisFolder: {
+          type: 'dir',
+          children: {
+            followMe: {
+              type: 'dir',
+              children: {
+                onceMoreISwear: {
+                  type: 'dir',
+                  children: {
+                    'special.link': { type: 'link', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', description: 'RICK ROLL' }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     home: {
       type: 'dir',
       children: {
@@ -28,13 +49,17 @@ const VFS = {
               type: 'file',
               content: "\nUniversity of Waterloo - Waterloo, Ontario\n• President's Scholarship, Aug 2025\n\nGEMS Modern Academy - Dubai, UAE\n• Best Pupil Award 2024-25, May 2025\n• Sanjay Gupta Award for Innovation & Entrepreneurship 2023-24, May 2024\n• 1st Place - Project Prism (Innovation & Entrepreneurship), Nov 2023\n• 2nd Place - GMA Hackathon, Aug 2022\n• 2nd Place - HackAProb, Aug 2020\n\nGEMS Our Own English High School - Sharjah, UAE\n• 3rd Place - Innotech Interschool Digital Fest (Web Design), Oct 2024\n\nDecoding Data Science - Dubai, UAE\n• Top 20 Winner - Building AI Applications Challenge, Jun 2025\n• Weekly Hackathon Winner, Feb 2024\n\nRu'ya Next Founders - Dubai, UAE\n• 1st Place - Ru'ya Careers Next Founders Competition, Sep 2023\n\nCurtin University - Dubai, UAE\n• Semi-Finalist - Hackathon, May 2023\n\nNASA Space Apps - Dubai, UAE\n• Top 48 UAE - NASA Space Apps Challenge, Oct 2022\n\nDrone In Schools - Dubai, UAE\n• Finalist - Teens' Next Big Idea Global Drone Competition, Jun 2021\n\n"
             },
+            'publications.txt':{
+              type: 'file',
+              content: "\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Explainable AI: Methods and Applications”, Vol. 8, Issue 10, 2023\n  https://ijisrt.com/explainable-ai-methods-and-applications\n\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Revolutionizing Logistics and Fleet Management: The Impact of EunoKinetiX on Operational Efficiency and Societal Dynamics”, Vol. 9, Issue 9, 2024\n  https://ijisrt.com/revolutionizing-logistics-and-fleet-management\n\n"
+            },
             'skills.txt': {
               type: 'file',
               content: "\n<span class='info-label'>Frontend:</span> HTML, CSS, JavaScript\n<span class='info-label'>Backend:</span> Node.js, PHP, SQL, Java\n<span class='info-label'>Programming Languages:</span> C, Python, Java, Shell scripting, Lean 4\n<span class='info-label'>AI & Automation:</span> Machine Learning, Generative AI, Explainable AI, Agentic AI, AI Automation, Computer Vision, Regression\n<span class='info-label'>DevOps & Cloud:</span> Git, Docker, Linux, AWS, Virtualization, VMWare, VirtualBox, CI/CD, n8n\n<span class='info-label'>Tools & Platforms:</span> Wordpress, Microsoft Office\n<span class='info-label'>Other:</span> Game Development, Leadership, Robotics, Research, Software Architecture, System Design\n\n"
             },
             '.secret': {
               type: 'file',
-              content: "🔒 You found the secret file!\n\nEver wanted to hack something? Try running 'hack <target>' (e.g., hack nasa.gov)\n\nPro tip: The secret to high-performing code is... lots of coffee and persistent debugging. ☕️"
+              content: "\n🔒 You found the secret file!\n\nEver wanted to hack something? Try running 'hack <target>' (e.g., hack nasa.gov)\n\nBtw, ever wondered who you are really? Why dont you try running 'whoami --really' and find out!\n\nSome treasures require patience… follow the special folders in / if you dare.(go 2 directories back by using 'cd ..' 2 times and then follow special and to return back to main just type 'cd')\n\nPro tip: The secret to high-performing code is... lots of coffee and persistent debugging. ☕️\n\n"
             },
             '.bash_history': {
               type: 'file',
@@ -50,6 +75,7 @@ const VFS = {
               type: 'dir',
               children: {
                 'github.link': { type: 'link', url: 'https://github.com/jishnusetia', description: 'My GitHub Profile' },
+                'mail.txt': { type: 'file', content: '\nFeel free to reach out at:\njishnusetia8@gmail.com\n\n'},
                 'instagram.link': { type: 'link', url: 'https://www.instagram.com/jishnu_setia/', description: 'My Instagram Profile' },
                 'linkedin.link': { type: 'link', url: 'https://linkedin.com/in/jishnusetia', description: 'My LinkedIn Profile' }
               }
@@ -278,7 +304,47 @@ const COMMANDS = {
   },
   whoami: {
     description: 'Display current user identity',
-    execute: () => 'guest'
+    execute: (args) => {
+      if (args[0] === '--really') {
+        return `
+        <div class="neofetch-container">
+        <pre class="ascii-art-small"><span class="ascii-logo">
+                @@@@       @@                                                                             
+                  @@@@  @@@ @@                                                                            
+                   @@    @@@                                                                              
+                    @ @@                                                                                  
+                    @@@@                     @@@@@     @@@   @@ @        @@                               
+                    @@@@          @@@ @@@@@ @     @@@@        @@@         @@                              
+                     @@@         @     @   @@ @@@@@@@@         @@         @@@  @@                         
+                     @ @        @@@@@@ @    @ @@@   @ @        @@         @@      @@                      
+                     @ @@       @@ @ @ @    @ @@@   @ @ @       @         @        @@                     
+                     @  @@       @ @@@ @     @     @ @@  @@     @        @@         @                     
+                     @    @       @@   @           @@@@@   @    @        @          @                     
+                     @@   @         @          @@@ @  @@    @   @@      @@         @@@ @@                 
+                     @@  @@        @@@@@@@@@@   @@    @      @   @      @@        @@@    @                
+                     @@  @          @  @@@@@@        @@      @@                  @@      @                
+                     @@  @          @     @@        @@        @@                 @       @                
+                     @@ @@           @@   @@@@@@@@@            @@              @@       @                 
+                     @@ @                 @@                     @@                   @@ @@               
+                     @  @                         @@  @@             @@@             @@    @              
+                     @  @                            @                   @@        @@     @@              
+                     @ @@                          @@        @@             @@           @@@@             
+                    @@ @                          @        @   @              @@       @@    @            
+                    @@ @ @@@@@@                 @@    @@   @    @@              @@            @           
+                   @@ @@         @@            @      @    @@     @               @     @@   @@           
+                @@ @@ @@            @@    @@@ @       @     @      @               @@@@ @@@@  @@          
+               @@  @  @@             @@   @@ @@@     @@     @       @            @@    @@      @          
+              @@   @  @                @    @    @@@@@      @        @       @@@  @    @@@@   @           
+              @@   @  @                 @   @@@      @@@@   @        @@@@@@       @   @@      @@          
+              @@   @ @@                 @@ @@ @@     @@        @@@        @       @   @         @         
+               @  @@ @@                 @@@    @@     @@       @@         @       @   @          @        
+               @@ @  @                  @      @@      @        @         @       @   @           @@      
+        </span></pre>
+        <div class="info-container">"Your mind is like this water, my friend. When it is agitated, it becomes difficult to see. But if you allow it to settle, the answer becomes clear."<br>-- Master Oogway<br></div>
+        </div><br>`;
+      }
+      return 'guest';
+    }
   },
   clear: {
     description: 'Clear the terminal screen',
@@ -388,20 +454,20 @@ const LOGO = `
 
 
 
-                                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                     
-                               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                 
-                         @@@@@@@@@@@@@@                             @@@@@@@@                               
-                      @@@@@@@@@@                                        @@@@@@                             
-                   @@@@@@@@@                                             @@@@@@                            
-                  @@@@@@@@@                                                @@@@@                           
-                    @@@@@@@@@                                    @@@@       @@@@@                          
-                         @@@@@                                @@@@@@@@       @@@@                          
-                          @@@@                              @@@@@@@@@@@      @@@@                          
-                          @@@@                          @@@@@@@@@  @@@@@     @@@@                          
-                          @@@@                @@@@@@@@@@@@@@@@      @@@@@@   @@@@                          
-                         @@@@@             @@@@@@@@@@@@@@@            @@@@   @@@@                          
-                          @@@@          @@@@@@@@                       @@@@ @@@@                           
-                          @@@@@      @@@@@@@@                          @@@@@@@@@                           
+                                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                         @@@@@@@@@@@@@@                             @@@@@@@@
+                      @@@@@@@@@@                                        @@@@@@
+                   @@@@@@@@@                                             @@@@@@
+                  @@@@@@@@@                                                @@@@@
+                    @@@@@@@@@                                    @@@@       @@@@@
+                         @@@@@                                @@@@@@@@       @@@@
+                          @@@@                              @@@@@@@@@@@      @@@@
+                          @@@@                          @@@@@@@@@  @@@@@     @@@@
+                          @@@@                @@@@@@@@@@@@@@@@      @@@@@@   @@@@
+                         @@@@@             @@@@@@@@@@@@@@@            @@@@   @@@@
+                          @@@@          @@@@@@@@                       @@@@ @@@@
+                          @@@@@      @@@@@@@@                          @@@@@@@@@
                            @@@@@  @@@@@@@@                              @@@@@@@                            
                             @@@@@@@@@@@                                 @@@@@@                             
                              @@@@@@@                                    @@@@@                              
@@ -443,7 +509,7 @@ const LOGO = `
  @@@@          @@@@                                                                     @@@@          @@@@ 
  @@@@          @@@@                                                                     @@@@          @@@@ 
  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 </span>
 `;
 
