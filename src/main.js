@@ -82,10 +82,11 @@ const COMMANDS = {
     description: 'List all available commands',
     execute: () => {
       const commands = Object.keys(COMMANDS).filter(cmd => cmd !== 'hack').sort();
-      let result = 'Available commands:\n\n';
+      let result = '\nAvailable commands:\n\n';
       commands.forEach(cmd => {
         result += `<span class="command-help">${cmd.padEnd(12)}</span> - ${COMMANDS[cmd].description}\n`;
       });
+      result += '\n'
       return result;
     }
   },
@@ -249,7 +250,7 @@ const COMMANDS = {
           }
           return file.content;
         } else if (file.type === 'link') {
-          return `URL: <span class="link" onclick="window.open('${file.url}', '_blank')">${file.url}</span>\n\n<span class="info-label">Tip:</span> Use the <span class="command-help">open ${args[0]}</span> command to open this project in a new tab.`;
+          return `URL: <span class="link" onclick="window.open('${file.url}', '_blank')">${file.url}</span>\n\n<span class="info-label">Tip:</span> Use the <span class="command-help">open ${args[0]}</span> command to open this link in a new tab.`;
         } else if (file.type === 'dir') {
           return `cat: ${args[0]}: Is a directory`;
         }
@@ -304,6 +305,8 @@ const COMMANDS = {
           document.body.setAttribute('data-theme', choice);
         }
         return `Theme changed to: ${choice}`;
+      }else{
+        return `Error: '${choice}' is not a valid theme.\nAvailable themes: ${themes.join(', ')}`;
       }
     }
   },
