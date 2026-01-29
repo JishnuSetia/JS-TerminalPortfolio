@@ -1,0 +1,590 @@
+import './style.css'
+
+const terminalContainer = document.getElementById('terminal-container');
+const output = document.getElementById('output');
+const input = document.getElementById('command-input');
+const promptDisplay = document.getElementById('prompt');
+
+// Virtual File System Definition
+const VFS = {
+  name: '/',
+  type: 'dir',
+  children: {
+    home: {
+      type: 'dir',
+      children: {
+        guest: {
+          type: 'dir',
+          children: {
+            'about.txt': {
+              type: 'file',
+              content: "I'm a passionate Computer Science enthusiast specializing in software development, AI, machine learning, and computer vision. Proficient in Python, Java, JavaScript, HTML/CSS, SQL, and PHP, I've applied my skills to diverse projects, gaining hands-on experience building intelligent solutions.\n\nI'm experienced with cloud platforms, database management, and virtual machines, and I enjoy creating AI-powered and data-driven applications that solve real-world problems.\n\nDriven by curiosity and innovation, I'm eager to explore new technologies and collaborate on projects that make a meaningful impact.\n\n"
+            },
+            'education.txt': {
+              type: 'file',
+              content: "\nUniversity of Waterloo - Waterloo, Ontario\nBCS, Honours Computer Science (Co-op)\n2025-2030\n• Focus: systems, software engineering, AI\n\nGEMS Modern Academy - Dubai, UAE\nHigh School Diploma\n2021-2025\n• Student Leader for Innovation & Entrepreneurship\n• Head of IT for multiple school events and projects\n\n"
+            },
+            'skills.txt': {
+              type: 'file',
+              content: "\n<span class='info-label'>Frontend:</span> HTML, CSS, JavaScript\n<span class='info-label'>Backend:</span> Node.js, PHP, SQL, Java\n<span class='info-label'>Programming Languages:</span> C, Python, Java, Shell scripting, Lean 4\n<span class='info-label'>AI & Automation:</span> Machine Learning, Generative AI, Explainable AI, Agentic AI, AI Automation, Computer Vision, Regression\n<span class='info-label'>DevOps & Cloud:</span> Git, Docker, Linux, AWS, Virtualization, VMWare, VirtualBox, CI/CD, n8n\n<span class='info-label'>Tools & Platforms:</span> Wordpress, Microsoft Office\n<span class='info-label'>Other:</span> Game Development, Leadership, Robotics, Research, Software Architecture, System Design\n\n"
+            },
+            '.secret': {
+              type: 'file',
+              content: "You found it! The secret to high-performing code is... lots of coffee and persistent debugging. ☕️"
+            },
+            '.bash_history': {
+              type: 'file',
+              content: "ls\ncd projects\nls -la\ncat .secret\nclear\nneofetch"
+            },
+            projects: {
+              type: 'dir',
+              children: {
+                '.git': { type: 'dir', children: {} }
+              }
+            },
+            socials: {
+              type: 'dir',
+              children: {
+                'github.link': { type: 'link', url: 'https://github.com/jishnusetia', description: 'My GitHub Profile' },
+                'instagram.link': { type: 'link', url: 'https://www.instagram.com/jishnu_setia/', description: 'My Instagram Profile' },
+                'linkedin.link': { type: 'link', url: 'https://linkedin.com/in/jishnusetia', description: 'My LinkedIn Profile' }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+let currentPath = ['home', 'guest'];
+let commandHistory = [];
+let historyIndex = -1;
+
+function getDir(path) {
+  let curr = VFS;
+  for (const part of path) {
+    if (curr.children && curr.children[part]) {
+      curr = curr.children[part];
+    } else {
+      return null;
+    }
+  }
+  return curr;
+}
+
+function getPathString() {
+  return '/' + currentPath.join('/');
+}
+
+const COMMANDS = {
+  help: {
+    description: 'List all available commands',
+    execute: () => {
+      const commands = Object.keys(COMMANDS).sort();
+      let result = 'Available commands:\n\n';
+      commands.forEach(cmd => {
+        result += `<span class="command-help">${cmd.padEnd(12)}</span> - ${COMMANDS[cmd].description}\n`;
+      });
+      return result;
+    }
+  },
+  ls: {
+    description: 'List directory contents (supports -a, -l, targets)',
+    execute: (args) => {
+      let showHidden = false;
+      let longFormat = false;
+      const targets = [];
+
+      args.forEach(arg => {
+        if (arg.startsWith('-')) {
+          if (arg.includes('a')) showHidden = true;
+          if (arg.includes('l')) longFormat = true;
+        } else {
+          targets.push(arg);
+        }
+      });
+
+      if (targets.length === 0) targets.push('.');
+
+      const results = [];
+
+      targets.forEach(target => {
+        let targetPath;
+        if (target === '.') {
+          targetPath = [...currentPath];
+        } else if (target === '..') {
+          targetPath = currentPath.slice(0, -1);
+        } else if (target === '~') {
+          targetPath = ['home', 'guest'];
+        } else if (target.startsWith('/')) {
+          targetPath = target.split('/').filter(p => p !== '');
+        } else {
+          targetPath = [...currentPath, ...target.split('/').filter(p => p !== '')];
+        }
+
+        const entry = getDir(targetPath);
+
+        if (!entry) {
+          results.push(`<span class="error-color">ls: cannot access '${target}': No such file or directory</span>`);
+          return;
+        }
+
+        if (entry.type === 'dir') {
+          if (targets.length > 1) results.push(`${target}:`);
+
+          let items = Object.keys(entry.children);
+          if (showHidden) {
+            items.push('.', '..');
+          } else {
+            items = items.filter(item => !item.startsWith('.'));
+          }
+          items.sort();
+
+          if (longFormat) {
+            let list = showHidden ? `total ${items.length}\n` : '';
+            items.forEach(item => {
+              let child;
+              if (item === '.') child = entry;
+              else if (item === '..') child = getDir(targetPath.slice(0, -1)) || VFS;
+              else child = entry.children[item];
+
+              const entryData = child.type === 'dir' ? { type: 'd', perms: 'rwxr-xr-x' } : (child.type === 'link' ? { type: 'l', perms: 'rwxr-xr-x' } : { type: '-', perms: 'rw-r--r--' });
+              const colorClass = child.type === 'dir' ? 'host' : (child.type === 'link' ? 'user' : 'text-color');
+              const size = child.type === 'dir' ? Object.keys(child.children || {}).length : (child.content ? child.content.length : 0);
+
+              list += `<span class="sep">${entryData.type}${entryData.perms}</span>  <span class="user">jishnusetia</span>  <span class="host">guest</span>  <span class="sep">${size.toString().padStart(4)}</span>  <span class="${colorClass}">${item}${child.type === 'dir' ? '/' : ''}</span>\n`;
+            });
+            results.push(list.trimEnd());
+          } else {
+            results.push(items.map(item => {
+              let child;
+              if (item === '.') child = entry;
+              else if (item === '..') child = getDir(targetPath.slice(0, -1)) || VFS;
+              else child = entry.children[item];
+
+              const colorClass = child.type === 'dir' ? 'host' : (child.type === 'link' ? 'user' : 'text-color');
+              return `<span class="${colorClass}">${item}${child.type === 'dir' ? '/' : ''}</span>`;
+            }).join('  '));
+          }
+        } else {
+          // It's a file or link
+          if (longFormat) {
+            const fileName = target.split('/').pop();
+            const entryData = entry.type === 'link' ? { type: 'l', perms: 'rwxr-xr-x' } : { type: '-', perms: 'rw-r--r--' };
+            const colorClass = entry.type === 'link' ? 'user' : 'text-color';
+            const size = entry.content ? entry.content.length : 0;
+            results.push(`<span class="sep">${entryData.type}${entryData.perms}</span>  <span class="user">jishnusetia</span>  <span class="host">guest</span>  <span class="sep">${size.toString().padStart(4)}</span>  <span class="${colorClass}">${fileName}</span>`);
+          } else {
+            const colorClass = entry.type === 'link' ? 'user' : 'text-color';
+            results.push(`<span class="${colorClass}">${target.split('/').pop()}</span>`);
+          }
+        }
+      });
+
+      return results.join('\n\n');
+    }
+  },
+  cd: {
+    description: 'Change directory',
+    execute: (args) => {
+      if (!args[0] || args[0] === '~') {
+        currentPath = ['home', 'guest'];
+        updatePrompt();
+        return '';
+      }
+      if (args[0] === '/') {
+        currentPath = [];
+        updatePrompt();
+        return '';
+      }
+      if (args[0] === '..') {
+        if (currentPath.length > 0) currentPath.pop();
+        updatePrompt();
+        return '';
+      }
+
+      const targetPath = args[0].split('/').filter(p => p !== '');
+      let newPath = args[0].startsWith('/') ? [] : [...currentPath];
+
+      for (const part of targetPath) {
+        if (part === '.') continue;
+        if (part === '..') {
+          if (newPath.length > 0) newPath.pop();
+        } else {
+          newPath.push(part);
+        }
+      }
+
+      const dir = getDir(newPath);
+      if (dir && dir.type === 'dir') {
+        currentPath = newPath;
+        updatePrompt();
+        return '';
+      } else {
+        return `<span class="error-color">cd: no such directory: ${args[0]}</span>`;
+      }
+    }
+  },
+  pwd: {
+    description: 'Print working directory',
+    execute: () => getPathString()
+  },
+  cat: {
+    description: 'Display file content',
+    execute: (args) => {
+      if (!args[0]) return 'cat: missing file operand';
+      const dir = getDir(currentPath);
+      const file = dir.children[args[0]];
+      if (file) {
+        if (file.type === 'file') {
+          if (args[0] === 'about.txt') {
+            return `
+<div class="about-container">
+  <img src="/me.jpg" class="about-image" alt="Jishnu Setia">
+  <div class="about-text-content">
+    ${file.content.trim().replace(/\n/g, '<br>')}
+  </div>
+</div><br>`;
+          }
+          return file.content;
+        } else if (file.type === 'link') {
+          return `URL: <span class="link" onclick="window.open('${file.url}', '_blank')">${file.url}</span>\n\n<span class="info-label">Tip:</span> Use the <span class="command-help">open ${args[0]}</span> command to open this project in a new tab.`;
+        } else if (file.type === 'dir') {
+          return `cat: ${args[0]}: Is a directory`;
+        }
+      }
+      return `cat: ${args[0]}: No such file or directory`;
+    }
+  },
+  open: {
+    description: 'Open a link file',
+    execute: (args) => {
+      if (!args[0]) return 'open: missing link operand';
+      const dir = getDir(currentPath);
+      const file = dir.children[args[0]];
+      if (file && file.type === 'link') {
+        window.open(file.url, '_blank');
+        return `Opening ${file.description || args[0]} in a new tab...`;
+      } else {
+        return `open: ${args[0]}: Not a valid link file`;
+      }
+    }
+  },
+  whoami: {
+    description: 'Display current user identity',
+    execute: () => 'guest'
+  },
+  clear: {
+    description: 'Clear the terminal screen',
+    execute: () => {
+      output.innerHTML = '';
+      return '';
+    }
+  },
+  neofetch: {
+    description: 'Show system information',
+    execute: () => {
+      showNeofetch();
+      return '';
+    }
+  },
+  theme: {
+    description: 'Change terminal theme (retro, matrix, dracula, nord, monokai, gruvbox, tokyonight, solarized)',
+    execute: (args) => {
+      const themes = ['retro', 'matrix', 'dracula', 'nord', 'monokai', 'gruvbox', 'tokyonight', 'solarized'];
+      if (!args[0]) {
+        return `Usage: theme [name]\nAvailable themes: ${themes.join(', ')}`;
+      }
+      const choice = args[0].toLowerCase();
+      if (themes.includes(choice)) {
+        if (choice === 'retro') {
+          document.body.removeAttribute('data-theme');
+        } else {
+          document.body.setAttribute('data-theme', choice);
+        }
+        return `Theme changed to: ${choice}`;
+      } else {
+        return `Error: Theme '${choice}' not found. Available themes: ${themes.join(', ')}`;
+      }
+    }
+  }
+};
+
+const LOGO = `
+<span class="ascii-logo">
+
+
+
+
+                                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                     
+                               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                 
+                         @@@@@@@@@@@@@@                             @@@@@@@@                               
+                      @@@@@@@@@@                                        @@@@@@                             
+                   @@@@@@@@@                                             @@@@@@                            
+                  @@@@@@@@@                                                @@@@@                           
+                    @@@@@@@@@                                    @@@@       @@@@@                          
+                         @@@@@                                @@@@@@@@       @@@@                          
+                          @@@@                              @@@@@@@@@@@      @@@@                          
+                          @@@@                          @@@@@@@@@  @@@@@     @@@@                          
+                          @@@@                @@@@@@@@@@@@@@@@      @@@@@@   @@@@                          
+                         @@@@@             @@@@@@@@@@@@@@@            @@@@   @@@@                          
+                          @@@@          @@@@@@@@                       @@@@ @@@@                           
+                          @@@@@      @@@@@@@@                          @@@@@@@@@                           
+                           @@@@@  @@@@@@@@                              @@@@@@@                            
+                            @@@@@@@@@@@                                 @@@@@@                             
+                             @@@@@@@                                    @@@@@                              
+                              @@@@@                                     @@@@@                              
+                           @@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@@@@@@@@@@@@@@@@@@@@@                           
+                          @@@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@@@@@@@@@@@@@@@@@@@@@@                          
+                         @@@@@ @@@@   @@@@      @@@@@@@@@@@      @@@@   @@@@ @@@@@                         
+                         @@@@  @@@@@  @@@@      @@@@@@@@@@@      @@@@  @@@@@  @@@@                         
+                         @@@@@  @@@@  @@@@      @@@@   @@@@      @@@@  @@@@@ @@@@@                         
+                          @@@@@@@@@@  @@@@@@@@@@@@@@   @@@@@@@@@@@@@@  @@@@@@@@@@                          
+                            @@@@@@@@@  @@@@@@@@@@@@     @@@@@@@@@@@@  @@@@@@@@@                            
+                              @@@@@@@                                 @@@@@@@                              
+                                @@@@@@                               @@@@@@                                
+                                  @@@@                               @@@@                                  
+                                  @@@@@                             @@@@@                                  
+                                   @@@@@                           @@@@@                                   
+                                    @@@@@                          @@@@                                    
+                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                     
+                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                  
+                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                
+               @@@@@                                                                   @@@@@               
+               @@@@                     @@@@@           @@@@  @@@@@                     @@@@               
+               @@@@                   @@@@@@          @@@@@@   @@@@@@                   @@@@               
+               @@@@                 @@@@@@@          @@@@@      @@@@@@@                 @@@@               
+               @@@@                @@@@@@          @@@@@@         @@@@@@                @@@@               
+               @@@@                @@@@@@         @@@@@           @@@@@@                @@@@               
+            @@@@@@@                  @@@@@@      @@@@@          @@@@@@                  @@@@@@@            
+         @@@@@@@@@@                   @@@@@@@  @@@@@@         @@@@@@@                   @@@@@@@@@@         
+       @@@@@@@ @@@@                     @@@@   @@@@            @@@@                     @@@@ @@@@@@@       
+      @@@@@    @@@@                                                                     @@@@   @@@@@@      
+    @@@@@@     @@@@                                @@@@@                                @@@@     @@@@@@    
+   @@@@@       @@@@                             @@@@@@@@@@@                             @@@@      @@@@@@   
+  @@@@@        @@@@                            @@@@@@ @@@@@@                            @@@@        @@@@@  
+  @@@@         @@@@                           @@@@@     @@@@@                           @@@@        @@@@@  
+ @@@@@         @@@@                           @@@@@     @@@@@                           @@@@         @@@@@ 
+ @@@@          @@@@                            @@@@@@ @@@@@@                            @@@@         #@@@@ 
+ @@@@          @@@@                             @@@@@@@@@@@                             @@@@          @@@@ 
+ @@@@          @@@@                                @@@@@                                @@@@          @@@@ 
+ @@@@          @@@@                                                                     @@@@          @@@@ 
+ @@@@          @@@@                                                                     @@@@          @@@@ 
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+</span>
+`;
+
+const NEOFETCH_INFO = `
+<span class="info-label">Guest@Jishnu's-Portfolio</span>
+<span class="info-label">------------------------</span>
+<span class="info-label">OS<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: JishnuSetia-OS</span></span>
+<span class="info-label">Host<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: Web Terminal</span></span>
+<span class="info-label">Kernel<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: JavaScript Runtime</span></span>
+<span class="info-label">Uptime<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: Since curiosity</span></span>
+<span class="info-label">Packages<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: 582 (aur)</span></span>
+<span class="info-label">Shell<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: portfolio-vsh</span></span>
+<span class="info-label">WM<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: Hyprland</span></span>
+<span class="info-label">CPU<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: Human + Silicon + ☕️</span></span>
+<span class="info-label">Memory<span style="font-family: 'Fira Code', 'Courier New', Courier, monospace;color: var(--text-color);">: Enough</span></span>
+<div class="color-band">
+  <span class="color-block color-1"></span><span class="color-block color-2"></span><span class="color-block color-3"></span><span class="color-block color-4"></span><span class="color-block color-5"></span><span class="color-block color-6"></span>
+</div>`;
+
+function updatePrompt() {
+  const ps1 = `<span class="user">Guest</span>@<span class="host">Jishnu's-Portfolio</span><span class="sep">:</span><span class="host">${getPathString()}</span><span class="sep">$</span> `;
+  if (promptDisplay) promptDisplay.innerHTML = ps1;
+  return ps1;
+}
+
+function printToTerminal(text, isCommand = false) {
+  const line = document.createElement('div');
+  if (isCommand) {
+    line.innerHTML = `<span class="prompt-line">${updatePrompt()} ${text}</span>`;
+  } else {
+    line.innerHTML = text;
+  }
+  output.appendChild(line);
+  terminalContainer.scrollTop = terminalContainer.scrollHeight;
+}
+
+function showNeofetch() {
+  const neofetchContainer = `
+    <div class="neofetch-container">
+      <pre class="ascii-art-small">${LOGO}</pre>
+      <div class="info-container">${NEOFETCH_INFO}</div>
+    </div>
+  `;
+  printToTerminal(neofetchContainer);
+  printToTerminal("Welcome to Jishnu Setia's Portfolio. Type <span class='command-help'>'help'</span> to see available commands.");
+}
+
+function handleCommand(cmdLine) {
+  const trimmedCmd = cmdLine.trim();
+
+  printToTerminal(cmdLine, true); // Use original cmdLine (can be empty string)
+
+  if (trimmedCmd === '') {
+    historyIndex = commandHistory.length;
+    return;
+  }
+
+  const parts = trimmedCmd.split(' ');
+  const cmd = parts[0];
+  const args = parts.slice(1);
+
+  if (COMMANDS[cmd]) {
+    const result = COMMANDS[cmd].execute(args);
+    if (result) {
+      printToTerminal(result);
+    }
+  } else {
+    printToTerminal(`<span style="color: var(--error-color)">Command not found: ${cmd}. Type 'help' for a list of commands.</span>`);
+  }
+
+  // History management
+  if (commandHistory[commandHistory.length - 1] !== cmdLine) {
+    commandHistory.push(cmdLine);
+  }
+  historyIndex = commandHistory.length;
+}
+
+function handleTabCompletion() {
+  const val = input.value;
+  const parts = val.split(' ');
+
+  if (parts.length === 1) {
+    // Complete commands
+    const matches = Object.keys(COMMANDS).filter(c => c.startsWith(parts[0]));
+    if (matches.length === 1) {
+      input.value = matches[0];
+    } else if (matches.length > 1) {
+      const matchText = matches.join('  ');
+      printToTerminal(trimmedInput(), true);
+      printToTerminal(matchText);
+    }
+  } else {
+    // Complete files/dirs or themes
+    const cmd = parts[0].toLowerCase();
+    const partial = parts[parts.length - 1];
+
+    if (cmd === 'theme') {
+      const themes = ['retro', 'matrix', 'dracula', 'nord', 'monokai', 'gruvbox', 'tokyonight', 'solarized'];
+      const currentTheme = document.body.getAttribute('data-theme') || 'retro';
+
+      if (!partial || partial === '') {
+        printToTerminal(trimmedInput(), true);
+        const themeList = themes.map(t => {
+          if (t === currentTheme) {
+            return `<span class="active-theme">${t}</span>`;
+          }
+          return t;
+        }).join('  ');
+        printToTerminal(themeList);
+        return;
+      }
+      const matches = themes.filter(t => t.startsWith(partial));
+      if (matches.length === 1) {
+        parts[parts.length - 1] = matches[0];
+        input.value = parts.join(' ');
+      } else if (matches.length > 1) {
+        printToTerminal(trimmedInput(), true);
+        const matchList = matches.map(t => {
+          if (t === currentTheme) {
+            return `<span class="active-theme">${t}</span>`;
+          }
+          return t;
+        }).join('  ');
+        printToTerminal(matchList);
+      }
+      return;
+    }
+
+    const dir = getDir(currentPath);
+    if (dir && dir.children) {
+      let items = Object.keys(dir.children);
+
+      // Filter based on command
+      if (cmd === 'cat') {
+        items = items.filter(i => dir.children[i].type !== 'dir');
+      } else if (cmd === 'cd') {
+        items = items.filter(i => dir.children[i].type === 'dir');
+      }
+
+      // Filter hidden files
+      if (!partial.startsWith('.')) {
+        items = items.filter(i => !i.startsWith('.'));
+      }
+
+      const matches = items.filter(i => i.startsWith(partial));
+
+      if (matches.length === 1) {
+        parts[parts.length - 1] = matches[0];
+        input.value = parts.join(' ');
+      } else if (matches.length > 1) {
+        const matchText = matches.join('  ');
+        printToTerminal(trimmedInput(), true);
+        printToTerminal(matchText);
+      }
+    }
+  }
+}
+
+function trimmedInput() {
+  return input.value;
+}
+
+// Initialize
+window.addEventListener('load', () => {
+  updatePrompt();
+  showNeofetch();
+  input.focus();
+});
+
+const displayText = document.getElementById('display-text');
+
+function updateDisplay() {
+  if (displayText) {
+    displayText.textContent = input.value;
+  }
+}
+
+// Input handling
+input.addEventListener('input', updateDisplay);
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const cmd = input.value;
+    handleCommand(cmd);
+    input.value = '';
+    updateDisplay();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (historyIndex > 0) {
+      historyIndex--;
+      input.value = commandHistory[historyIndex];
+      updateDisplay();
+    }
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (historyIndex < commandHistory.length - 1) {
+      historyIndex++;
+      input.value = commandHistory[historyIndex];
+      updateDisplay();
+    } else {
+      historyIndex = commandHistory.length;
+      input.value = '';
+      updateDisplay();
+    }
+  } else if (e.key === 'Tab') {
+    e.preventDefault();
+    handleTabCompletion();
+    updateDisplay();
+  }
+});
+
+// Keep focus on input
+document.addEventListener('click', () => {
+  input.focus();
+});

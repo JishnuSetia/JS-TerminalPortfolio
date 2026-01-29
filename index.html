@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>terminalportfolio</title>
+</head>
+
+<body>
+  <div id="terminal-container">
+    <div id="output"></div>
+    <div id="input-line">
+      <span id="prompt">$</span>
+      <div id="input-container">
+        <span id="display-text"></span>
+        <div id="cursor"></div>
+        <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false" />
+      </div>
+    </div>
+  </div>
+  <div class="scanlines"></div>
+  <div class="crt-overlay"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
