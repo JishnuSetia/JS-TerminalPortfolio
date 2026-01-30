@@ -10,6 +10,182 @@ const VFS = {
   name: '/',
   type: 'dir',
   children: {
+    bin: { type: 'dir', children: {
+      'whoami.exe': { type: 'file', content: 'Displays current user identity' },
+      'neofetch.sh': { type: 'file', content: 'Shows system info with cool logos' }
+    }},
+    boot: { type: 'dir', children: {
+      'kernel.img': { type: 'file', content: 'The imaginary kernel for your portfolio OS' },
+      'grub.cfg': { type: 'file', content: 'Bootloader config for fun' }
+    }},
+    dev: { type: 'dir', children: {
+      'tty0': { type: 'file', content: 'Virtual terminal 0' },
+      'null': { type: 'file', content: 'Nothing goes here 😎' }
+    }},
+    etc: { type: 'dir', children: {
+      'hosts': { type: 'file', content: '127.0.0.1 localhost\n::1 localhost' },
+      'motd.txt': { type: 'file', content: 'Welcome to Jishnu\'s Portfolio Terminal!' },
+      '.passwords.txt': {
+        type: 'file',
+        content:`
+  <span class="ascii-logo2">
+                                                                                                                                                                                                                                  
+                                                                                                                                    %#@%@@@@@@@@@@@@@@@@@@%@*                                                                   
+                                                                                                                            @%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%                                                           
+                                                                                                                       @%@@@@@@@@@@@@@@@@@@@@@@%%%@@@@%%@@@@@@@@@@@@@@@@%%                                                      
+                                                                                                                   @@@@@@@@@@@@@@@@@%#                           #@@@@@@@@@@@%                                                  
+                                                                                                               %@@@@@@@@@@@@@@%                                        @@@@@@@@@@                                               
+                                                                                                            %@@@@@@@@@@@@@%                                                %@@@@@@@%                                            
+                                                                                                          @@@@@@@@@@@@                                                        %@@@@@@@                                          
+                                                                                                       @@@@@@@@@@@@                                                              @@@@@@%                                        
+                                                                                                     @@@@@@@@@@@                                                                   %@@@@@@                                      
+                                                                                                   @@@@@@@@@@                                                                        @@@@@@                                     
+                                                                                                 @@@@@@@@@%                                                                            %@@@@                                    
+                                                                                               %@@@@@@@@@                                                                                %@@@%                                  
+                                                                                              @@@@@@@@                                                                                    %@@@%                                 
+                                                                                            @@@@@@@@@                                                                                      %@@@                                 
+                                                                                           @@@@@@@#                                                                                         @@@@%                               
+                                                                                         %@@@@@@@                                                                                            #@@@=                              
+                                                                                        @@@@@@@#                                                                                              @@@@                              
+                                                                                       @@@@@@@@                                                                                                %@@@                             
+                                                                                     %@@@@@@@                                                                                                   @@@@                            
+                                                                                     @@@@@@@                                                                                                     @@@@                           
+                                                                                   %@@@@@@%                                                                                                      #@@@%                          
+                                                                                  #@@@@@@@                                                                                                        #@@@@                         
+                                                                                  @@@@@@@                                                                                                          @@@@                         
+                                                                                 @@@@@@@                                                                                                            @@@@                        
+                                                                                %@@@@@@                                                                                                             %@@@#                       
+                                                                               *@@@@@@%                                             %@@@@@@@@@@@                                                     %@@@                       
+                                                                               @@@@@@@                                          #@@@@@@@@@@@@@@%                                                      @@@@                      
+                                                                              #@@@@@@                                         @@@@@@@@@@%#                                                            #@@@+                     
+                                                                              @@@@@@%                                        @@@@@@%      #%@@@@@@@*                                                   @@@@                     
+                                                                             @@@@@@@                                       @@@@@      @@@@@@@@@@@@@@@@@%                                               @@@@                     
+                                                                             @@@@@@                                        @@%     @@@@@@%%     #@@@@@@@@@+                                             @@@*                    
+                                                                   %@@@@@@% %@@@@@@                                             %@@@@*               %@@@@@@%                                           #@@%                    
+                                                                 #@@@@@@@@@@@@@@@@@                                           @@@@@                     @@@@@@@                                         %@@@                    
+                                                                @@@@@@@@@@@@@@@@@@                                          #@@@%                         @@@@@@@                                        @@@                    
+                                                               @@@@@@%     @@@@@@@                                          @@%                             %@@@@%                   @%@                 @@@                    
+                                                              %@@@@@%       @@@@@                                                                             @@@@@%          @@    %@@@@                @@@                    
+                                                              @@@@@@           =                                                                               %@@@@%         @@*    %@@@@              @@@%                    
+                                                             @@@@@@%  %@%@%                                                                            %@@%      %@@@@%      @@@     @@@@@@             %@@%                    
+                                                             @@@@@@  @@@@@@@%                                                                          @@@@@%      %@@@@%   @@@@     %@@@@@             @@@                     
+                                                             @@@@@% %@@ @@@@@                                                        @@@@@@@@@*        @@@@@@%       %@@@@@@@@@      @@@@@             #@@@                     
+                                                             @@@@@@ @@   @@@@@                                                   %@@@@@@@@@@@@@@@@%     %@@@@@@        @@@@@@%      @@@@@#             @@@@                     
+                                                             @@@@@@      %@@@@                                                 @@@@@@@@@%@@@%@@@@@@@%    %@@@@@           +        %@@@@@              @@@*                     
+                                                             @@@@@%      @@@@@                                               %@@@@@@%%@@@@@@@@@@%@@@@@@   %@@@@+                  %@@@@@               @@@                      
+                                                             @@@@@%      @@@@%                                               @@@@@  @@@@@@@@@@@@@  @@@@@   %@@@@                 @@@@@                 @@@                      
+                                                             @@@@@@     @@@@@*                                              %@@@@   %@@@@@@@@@@@@+   @@@@   *@@                 @@@@%      #@%%@      =@@#                      
+                                                             @@@@@@     %@@@@                                               @@@@@   @@@@@@@@@@@@@     @@@@                   @@@@@#     %@@@@@@@@@@@% #@@#                      
+                                                             @@@@@#     @@@@@                                                @@@@@%  *@@@@@@@@@@@      %@@@                             %#@  @%@@@@@@@@@@%                      
+                                                             @@@@@@      @@@@@                                                %@@@@@@@@+%%@@%%        #@@@@%                                      +@@@@@@#                      
+                                                             @@@@@@      *@@@@@                                                  @@@@@@@@@@@@@@@@@@@@@@@@@                         %@@@@@@#          @@@@@                      
+                                                              @@@@@#       @@@@@                                                      %@@@@@@@@@@@%@=                           #@@@@@@@@@@@@@@      @@@@                       
+                                                              @@@@@@        @@@@@                                                                      @@                       @@@@@@@@@@@@@@@@@   @@@@                        
+                                                              %@@@@@         @@@@                                                                    %@@@%                      #@@@@@@@@@  %@@@@@ #@@@%                        
+                                                               @@@@@#        @@@@                                                                  @@@@@@                        @@@@@@@@   @@@@@ %@@@@                         
+                                                                @@@@@      @@@@@%                                                               %%@@@@@#                         @@@@@@@  %@@@@@%%@@@+                          
+                                                                @@@@@%     @@@@%                                                              @@@@@@@@                           @@@   %@@@@@@@%%@@@#                           
+                                                                 @@@@@@                                                                     @@@@@@@@#                            @@@% +@@@@@@@  @@@                             
+                                                                  %@@@@@                                                              @@@@@@@@@@@@@                              @@@@           @@@                             
+                                                                   @@@@@@@@@@                                                          %@@@@@@@%                                 @@@@           @@@@                            
+                                                                     @@@@@@@%                                                                                                    %@@@            @@@                            
+                                                                       @@@@@%                                                                                                    %@@@            @@%                            
+                                                                       %@@@@                                                                                                     %@@@            @@@                            
+                                                                       @@@@#                                                                                                     %@@@*          -@@@                            
+                                                                      @@@@@%                                                                                                     %@@@%          @@@@                            
+                                                                      @@@@%                                                                       %@                              @@@@          @@@@                            
+                                                                      @@@@                                                                     #@@@@                              @@@@@%        @@%                             
+                                                                     #@@@@                                                                    @@@#                                 #@@@@       @@@                              
+                                                                     @@@@@                                                                   @@@                                    %@@@@     @@@*                              
+                                                                    @@@@@                                                                   +@@%                                     @@@@@% %@@@                                
+                                                                    %@@@@                                                                   %@@+               +                      @@@@@@@@@                                 
+                                                                    @@@@@           %                                                        @@@           @@@@@@@@%                 %@@@@@@@                                   
+                                                                   +@@@@@         %@@@                                                       @@@#        @@@@@@@@@@@@              *@@@@@@@                                     
+                                                                   %@@@@          @@@@                                                        @@@@#    %@@@@@@@@@@@@@@           %@@@@@@@@                                      
+                                                                   @@@@%          @@@@                                                         %@@@@@@@@@@@@      @@@@%       @@@@@@@@@@@                                       
+                                                                   @@@@           @@@@                                    @@%                    %@@@@@@@%        @@@@@@@@@@@@@@@@@@@@@#                                        
+                                                                  %@@@@           @@@@                                 @@@@@@                                      @@@@@@@@@@@@@@@@%@@%                                         
+                                                                  @@@@@           %@@%                                @@@@@%                                         @@@@@@@@@@@    @@                                          
+                                                                 %@@@@            @@@@                               @@@@@%                                                        @@@                                          
+                                                                 @@@@%            +@@@                              @@@@@%                                                        @@@#                                          
+                                                                +@@@@%             @@@@                            #@@@%                                                         #@@@                                           
+                                                                @@@@@              %@@@                            @@@                                                           @@@                                            
+                                                                @@@@               %@@@%                                                                                        @@@                                             
+                                                               @@@@%                @@@@                                          %@@@@%                                       @@@#                                             
+                                                              %@@@@                  @@@@                                       @@@@@@                                        @@@@                                              
+                                                             @@@@@@                  @@@@@                                    @@@@@@@@@@%@%@@@%@%@@@@@@@@@@%                 %@@%                                               
+                                                            %@@@@#                    @@@@%                                   @@@@    %@@@@@@@@@@@@@@@@@@@@@@@@%  @@@@@@@@@@@@@@                                                
+                                                           %@@@@%                      @@@@@                                 %@@@           %@%%%@%+     %%@@@@@@@@@@@@@@@@@@@@%                                                
+                                                          @@@@@@                        @@@@@                                                                 %@@@@@%      +@@@                                                 
+                                                        *@@@@@                           @@@@@@                                                                            @@@@@@@%                                             
+                                                      @@@@@@@                             @@@@@@                                                                           *@@@@@@@@@@@@%                                       
+                                                    %@@@@@%                                 @@@@@@                                                 %#                  @%  %@@@@@@@@@@@@@@@@@%                                  
+                                                 %@@@@@@@                                    @@@@@@%                                              %@@@@@@@@@@@@@@@@@@@@@@  @@@@     %@@@@@@@@@@@%                               
+                                             *@@@@@@@%                                         %@@@@@@                                               @@@@@@@@@@@@@@@@@%  %@@@@          %@@@@@@@@@@                             
+                                          %@@@@@@%                                               %@@@@@%                                                  %@%@@%@%      @@@@@              @%@@@@@@@@                           
+                                       @@@@@@@%                                                    @@@@@@#                                                            %@@@@@                  %@@@@@@@@@                        
+                                    #@@@@@@                                                          @@@@@@@                                                         %@@@@%                     #@@@@@@@@%                      
+                                 *%@@@@@                                                               @@@@@@@                                                       @@@@@@                        @@@@@@@@@%                   
+                               %@@@@@                                                                    #@@@@@@                                                    @@@@@@#                          %@@@@@@@@@%                
+                             @@@@@@@@%                                                                     %@@@@@@@                                                @@@@@@@@                             %@@@@@@@@@@%@           
+                           @@@@@  @@@@%                                                                      *@@@@@@%                                             @@@@@@@@%                                 %@@@@@@@@@@%        
+                         @@@@@     %@@@@                                                                       @@@@@@@@                                          @@@@%@@@@                                       %@@@@@@@@%     
+                       @@@@%        @@@@%                                                                        @@@@@@@@@                                     %@@@@@@@@@@                                           #@@@@@@@@# 
+                    @@@@@           %@@@@%                                                                          @@@@@@@@@                                 @@@@@  @@@@%                                               %@@@@@@
+                  @@@@@              %@@@@%                                                                           @@@@@@@@@@%                          @@@@@@%  %@@@@                                                     *%
+                @@@@@                 %@@@@%                                                                             @@@@@@@@@@@@@@%@*            %@@@@@@@@%    @@@@@                                                       
+             %@@@@#                    @@@@@#                                                                               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@     %@@@%                                                        
+          @@@@@@                        @@@@@@                                                                                  %@@@@@@@@@@@@@@@@@@@@@@@@@@        @@@@                                                         
+      @@@@@@@                             @@@@@                                                                                          *%@@%%%%@@#              @@@@                                                          
+  %@@@@@%                                  %@@@@                                                                                                                 %@@%                                                           
+@@@@%                                        @@@@@                                                                                                              @@@%                                                            
+#@                                             @%@                                                                                                                                                                              
+                                                                                                                                                                                                                                
+  </span>
+        `
+      }
+    }},
+    lib: { type: 'dir', children: {
+      'libfun.so': { type: 'file', content: 'Fun shared library for easter eggs' }
+    }},
+    media: { type: 'dir', children: {
+      'coffee_cup.png': { type: 'file', content: 'ASCII coffee cup for devs' },
+      'cool_duck.png': { type: 'file', content: 'Duck with a hat' }
+    }},
+    mnt: { type: 'dir', children: {
+      'mount_here.txt': { type: 'file', content: 'Nothing mounted yet 😎' }
+    }},
+    opt: { type: 'dir', children: {
+      'extras': { type: 'dir', children: { 'fun.txt': { type: 'file', content: 'Extra fun files' } } }
+    }},
+    proc: { type: 'dir', children: {
+      'cpuinfo.txt': { type: 'file', content: 'Imaginary CPU: 9000 cores' },
+      'meminfo.txt': { type: 'file', content: 'RAM: infinite' }
+    }},
+    root: { type: 'dir', children: {
+      'secret.txt': { type: 'file', content: 'You are in root 😏' }
+    }},
+    run: { type: 'dir', children: {
+      'session.tmp': { type: 'file', content: 'Temporary session data' }
+    }},
+    sbin: { type: 'dir', children: {
+      'hack.sh': { type: 'file', content: 'Your fake hacking easter egg' }
+    }},
+    srv: { type: 'dir', children: {
+      'games/': { type: 'dir', children: { 'play.txt': { type: 'file', content: 'Pretend game server' } } }
+    }},
+    sys: { type: 'dir', children: {
+      'settings.sys': { type: 'file', content: 'System settings for fun' }
+    }},
+    tmp: { type: 'dir', children: {
+      'random.tmp': { type: 'file', content: 'Temporary randomness' }
+    }},
+    usr: { type: 'dir', children: {
+      'local/': { type: 'dir', children: { 'README.txt': { type: 'file', content: 'Local user stuff' } } }
+    }},
+    var: { type: 'dir', children: {
+      'log.txt': { type: 'file', content: 'All logs go here' }
+    }},
     special: {
       type: 'dir',
       children: {
@@ -55,7 +231,7 @@ const VFS = {
             },
             'skills.txt': {
               type: 'file',
-              content: "\n<span class='info-label'>Frontend:</span> HTML, CSS, JavaScript\n<span class='info-label'>Backend:</span> Node.js, PHP, SQL, Java\n<span class='info-label'>Programming Languages:</span> C, Python, Java, Shell scripting, Lean 4\n<span class='info-label'>AI & Automation:</span> Machine Learning, Generative AI, Explainable AI, Agentic AI, AI Automation, Computer Vision, Regression\n<span class='info-label'>DevOps & Cloud:</span> Git, Docker, Linux, AWS, Virtualization, VMWare, VirtualBox, CI/CD, n8n\n<span class='info-label'>Tools & Platforms:</span> Wordpress, Microsoft Office\n<span class='info-label'>Other:</span> Game Development, Leadership, Robotics, Research, Software Architecture, System Design\n\n"
+              content: "\n<span class='info-label'>Frontend:</span> HTML, CSS, JavaScript\n<span class='info-label'>Backend:</span> Node.js, PHP, SQL, Java\n<span class='info-label'>Programming Languages:</span> C, Python, Java, JavaScript, PHP, SQL, HTML, CSS, Shell scripting, Lean 4, Racket\n<span class='info-label'>Frameworks & Libraries:</span> Node.js, Machine Learning (scikit-learn, OpenCV)\n<span class='info-label'>Databases:</span> MySQL, PostgreSQL, Google Firebase\n<span class='info-label'>AI & Automation:</span> Machine Learning, Generative AI, Explainable AI, Agentic AI, AI Automation, Computer Vision, Regression\n<span class='info-label'>DevOps & Cloud:</span> Git, Docker, Linux, AWS, Oracle Cloud Infrastructure (OCI), Virtualization, VMWare, VirtualBox, UTM, CI/CD, n8n\n<span class='info-label'>Developer Tools:</span> JetBrains Suite, Visual Studio Code, Eclipse, Xcode\n<span class='info-label'>Operating Systems:</span> Linux, macOS, Windows\n<span class='info-label'>Tools & Platforms:</span> Wordpress, Microsoft Office, Adobe Photoshop, Filmora, iMovie\n<span class='info-label'>Other:</span> Game Development, Leadership, Robotics, Research, Software Architecture, System Design, Arduino, Artificial Intelligence, Computer Vision\n\n"
             },
             '.secret': {
               type: 'file',
@@ -184,6 +360,7 @@ const VFS = {
 </span>
               
 - Ever wanted to hack something? Try running 'hack <target>' (e.g., hack nasa.gov)
+- Wanna try log in as root and do cool stuff? Try looking for the .passwords file in root directories
 - Btw, ever wondered who you are really? Why dont you try running 'whoami --really' and find out!
 - Some treasures require patience… follow the special folders in / if you dare.(go 2 directories back by using 'cd /' and then follow special and to return back to main just type 'cd')
 
@@ -196,14 +373,80 @@ Pro tip: The secret to high-performing code is... lots of coffee, good music, an
             projects: {
               type: 'dir',
               children: {
-                '.git': { type: 'dir', children: {} }
+                '.git': { type: 'dir', children: {} },
+                'eunokinetix.txt':{
+                  type: 'file',
+                  content:`
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                               EunoKinetiX                                    ║
+║                         March 2023 - April 2025                              ║
+║------------------------------------------------------------------------------║
+║ • Co-founded an AI-powered fleet management system for real-time school      ║
+║   transportation. Led development and system architecture.                   ║
+║                                                                              ║
+║ • Core Features:                                                             ║
+║     - AI route optimization based on payload input, adapting to last-minute  ║
+║       changes in student locations and attendance.                           ║
+║     - Live AI payload optimization for maximum efficiency of buses.          ║
+║     - Student attendance input updates payload dynamically, reducing wasted  ║
+║       stops.                                                                 ║
+║     - Real-time transport tracking for school administrators and parents.    ║
+║                                                                              ║
+║ • Tech Stack: HTML, CSS, JavaScript, Node.js, SQL                            ║
+║                                                                              ║
+║ • Achievements:                                                              ║
+║     - Won AED 23K at Ru'ya                                                   ║
+║     - Raised AED 8K via crowdfunding                                         ║
+║     - Presented at GITEX, Intersec, COP28                                    ║
+║                                                                              ║
+║ • Project concluded as team transitioned to university after achieving       ║
+║   multiple awards and milestones.                                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝                  
+`
+                },
+                'student2success.txt':{
+                  type: 'file',
+                  content:`
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                              Student2Success (S2S)                             ║
+║                              March 2024 - May 2025                             ║
+╠════════════════════════════════════════════════════════════════════════════════╣
+║ • Co-founded a mentorship platform to empower students with personalized       ║
+║   guidance.                                                                    ║
+║                                                                                ║
+║ • Developed a mentorship system connecting students with seniors, reaching     ║
+║   100+ users.                                                                  ║
+║                                                                                ║
+║ • Implemented key features including AI Live Counselor, real counselor         ║
+║   appointments, portfolio/resume builder, opportunity posts, and private chats.║
+║                                                                                ║
+║ • Built full-stack using HTML, CSS, JavaScript, Node.js, and SQL.              ║
+║                                                                                ║
+║ • Fostered an active student community for peer-to-peer learning and           ║
+║   experience sharing.                                                          ║
+║                                                                                ║
+║ • Presented at GITEX                                                           ║
+║                                                                                ║
+║ • Project concluded after its initial pilot phase, yielding valuable insights  ║
+║   from early users.                                                            ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝                                 
+`
+                },
               }
             },
             socials: {
               type: 'dir',
               children: {
                 'github.link': { type: 'link', url: 'https://github.com/jishnusetia', description: 'My GitHub Profile' },
-                'mail.txt': { type: 'file', content: '\nFeel free to reach out at:\njishnusetia8@gmail.com\n\n'},
+                'mail.txt': { 
+                  type: 'file', 
+                  content: `
+(\\_/)
+( •_•)  "Psst… want to reach me? Here's the key:"
+/ >📧   jishnusetia8@gmail.com                  
+                  `
+                },
                 'instagram.link': { type: 'link', url: 'https://www.instagram.com/jishnu_setia/', description: 'My Instagram Profile' },
                 'linkedin.link': { type: 'link', url: 'https://linkedin.com/in/jishnusetia', description: 'My LinkedIn Profile' }
               }
