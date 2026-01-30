@@ -434,6 +434,14 @@ body::before {
   display: block;
 }
 
+.ascii-logo2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2px;
+  line-height: 1;
+  animation: flicker 0.1s infinite alternate;
+  display: block;
+}
+
 /* Scanlines Animation */
 .scanlines {
   position: absolute;
