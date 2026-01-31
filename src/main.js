@@ -220,49 +220,45 @@ const VFS = {
             'experience.txt': {
               type: 'file',
               content:`
-╔══════════════════════════════════════════════════════════════════════╗
-║                           EXPERIENCE                                 ║
-╠══════════════════════════════════════════════════════════════════════╣
-║                                                                      ║
-║  Intern                                                    July 2025 ║
-║  Decoding Data Science                                    Dubai, UAE ║
-║  • Conducted workshops and managed event logistics                   ║
-║  • Led the “n8n in 30” automation session                            ║
-║                                                                      ║
-║  IT / AI Intern                                 May 2025 - July 2025 ║
-║  Lamborghini Abu Dhabi & Dubai                            Dubai, UAE ║
-║  • Built AI-driven workflows and task management systems             ║
-║  • Streamlined HR operations under Head of Digital Reforms           ║
-║                                                                      ║
-║  Founder & CTO                                 March 2024 - May 2025 ║
-║  Student2Success                                          Dubai, UAE ║
-║  • Built a mentorship platform connecting students with seniors      ║
-║  • Reached 100+ users; exploring relaunch                            ║
-║                                                                      ║
-║  Co-Founder & CTO                            March 2023 - April 2025 ║
-║  EunoKinetiX                                              Dubai, UAE ║
-║  • Co-founded an AI fleet management startup                         ║
-║  • Led system architecture and full-stack development                ║
-║  • Won AED 23K at Ru'ya; raised AED 8K via crowdfunding              ║
-║  • Presented at GITEX, Intersec, and COP 28                          ║
-║  • Project concluded after achieving major milestones                ║
-║                                                                      ║
-║  Student Head of IT & Innovation Leader          Mar 2023 - Jan 2025 ║
-║  GEMS Modern Academy                                      Dubai, UAE ║
-║  • Managed digital infrastructure for school-wide events             ║
-║  • Led IT operations, training, and troubleshooting                  ║
-║                                                                      ║
-║  Software Development Intern                             August 2024 ║
-║  Numarck                                               Remote, India ║
-║  • Built automation scripts and internal web tools                   ║
-║  • Improved workflows; received ₹10,000 INR stipend                  ║
-║                                                                      ║
-║  Web Developer Intern                                      July 2024 ║
-║  Junior Prince Mall                                    Remote, India ║
-║  • Developed and deployed the official mall website                  ║
-║  • Enhanced online visibility with responsive UI                     ║
-║                                                                      ║
-╚══════════════════════════════════════════════════════════════════════╝
+Experience:
+
+Intern                                                    July 2025 
+Decoding Data Science                                    Dubai, UAE 
+• Conducted workshops and managed event logistics                   
+• Led the “n8n in 30” automation session                            
+
+IT / AI Intern                                 May 2025 - July 2025 
+Lamborghini Abu Dhabi & Dubai                            Dubai, UAE 
+• Built AI-driven workflows and task management systems             
+• Streamlined HR operations under Head of Digital Reforms           
+
+Founder & CTO                                 March 2024 - May 2025
+Student2Success                                          Dubai, UAE 
+• Built a mentorship platform connecting students with seniors      
+• Reached 100+ users; exploring relaunch                            
+
+Co-Founder & CTO                            March 2023 - April 2025 
+EunoKinetiX                                              Dubai, UAE 
+• Co-founded an AI fleet management startup                         
+• Led system architecture and full-stack development                
+• Won AED 23K at Ru'ya; raised AED 8K via crowdfunding              
+• Presented at GITEX, Intersec, and COP 28                          
+• Project concluded after achieving major milestones                
+
+Student Head of IT & Innovation Leader          Mar 2023 - Jan 2025 
+GEMS Modern Academy                                      Dubai, UAE 
+• Managed digital infrastructure for school-wide events             
+• Led IT operations, training, and troubleshooting                  
+
+Software Development Intern                             August 2024 
+Numarck                                               Remote, India 
+• Built automation scripts and internal web tools                   
+• Improved workflows; received ₹10,000 INR stipend                  
+
+Web Developer Intern                                      July 2024 
+Junior Prince Mall                                    Remote, India 
+• Developed and deployed the official mall website                  
+• Enhanced online visibility with responsive UI                     
 
 `
             },
@@ -515,7 +511,7 @@ High School Diploma
             },
             'publications.txt':{
               type: 'file',
-              content: "\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Explainable AI: Methods and Applications”, Vol. 8, Issue 10, 2023\n  https://ijisrt.com/explainable-ai-methods-and-applications\n\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Revolutionizing Logistics and Fleet Management: The Impact of EunoKinetiX on Operational Efficiency and Societal Dynamics”, Vol. 9, Issue 9, 2024\n  https://ijisrt.com/revolutionizing-logistics-and-fleet-management\n\n"
+              content: `\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Explainable AI: Methods and Applications”, Vol. 8, Issue 10, 2023\n  <span class="link" onclick="window.open('https://ijisrt.com/explainable-ai-methods-and-applications', '_blank')">https://ijisrt.com/explainable-ai-methods-and-applications</span>\n\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Revolutionizing Logistics and Fleet Management: The Impact of EunoKinetiX on Operational Efficiency and Societal Dynamics”, Vol. 9, Issue 9, 2024\n  <span class="link" onclick="window.open('https://www.ijisrt.com/revolutionizing-logistics-and-fleet-management-a-comprehensive-analysis-of-the-impact-of-eunokinetix-on-operational-efficiency-and-societal-dynamics', '_blank')">https://www.ijisrt.com/revolutionizing-logistics-and-fleet-management-a-comprehensive-analysis-of-the-impact-of-eunokinetix-on-operational-efficiency-and-societal-dynamics</span>\n\n`
             },
             'skills.txt': {
               type: 'file',
@@ -662,65 +658,104 @@ Pro tip: The secret to high-performing code is... lots of coffee, good music, an
               type: 'dir',
               children: {
                 '.git': { type: 'dir', children: {} },
-                'eunokinetix.txt':{
-                  type: 'file',
-                  content:`
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                               EunoKinetiX                                    ║
-║                         March 2023 - April 2025                              ║
-║------------------------------------------------------------------------------║
-║ • Co-founded an AI-powered fleet management system for real-time school      ║
-║   transportation. Led development and system architecture.                   ║
-║                                                                              ║
-║ • Core Features:                                                             ║
-║     - AI route optimization based on payload input, adapting to last-minute  ║
-║       changes in student locations and attendance.                           ║
-║     - Live AI payload optimization for maximum efficiency of buses.          ║
-║     - Student attendance input updates payload dynamically, reducing wasted  ║
-║       stops.                                                                 ║
-║     - Real-time transport tracking for school administrators and parents.    ║
-║                                                                              ║
-║ • Tech Stack: HTML, CSS, JavaScript, Node.js, SQL                            ║
-║                                                                              ║
-║ • Achievements:                                                              ║
-║     - Won AED 23K at Ru'ya                                                   ║
-║     - Raised AED 8K via crowdfunding                                         ║
-║     - Presented at GITEX, Intersec, COP28                                    ║
-║                                                                              ║
-║ • Project concluded as team transitioned to university after achieving       ║
-║   multiple awards and milestones.                                            ║
-╚══════════════════════════════════════════════════════════════════════════════╝                  
+                SaaS: {
+                  type: 'dir',
+                  children: {
+                    'eunokinetix.txt':{
+                    type: 'file',
+                    content:`
+Project Name: EunoKinetiX
+March 2023 - April 2025
+
+• Co-founded an AI-powered fleet management system for real-time school transportation. Led development and system architecture.
+
+• Core Features:
+  - AI route optimization based on payload input, adapting to last-minute changes in student locations and attendance.
+  - Live AI payload optimization for maximum efficiency of buses.
+  - Student attendance input updates payload dynamically, reducing wasted stops.
+  - Real-time transport tracking for school administrators and parents.
+
+• Tech Stack: HTML, CSS, JavaScript, Node.js, SQL
+
+• Achievements:
+  - Won AED 23K at Ru'ya Careers' Next Founder Competition
+  - Raised AED 8K via crowdfunding
+  - Presented at GITEX, Intersec, COP28
+
+• Project concluded as team transitioned to university after achieving multiple awards and milestones.
+
 `
-                },
-                'student2success.txt':{
-                  type: 'file',
-                  content:`
-╔════════════════════════════════════════════════════════════════════════════════╗
-║                              Student2Success (S2S)                             ║
-║                              March 2024 - May 2025                             ║
-╠════════════════════════════════════════════════════════════════════════════════╣
-║ • Co-founded a mentorship platform to empower students with personalized       ║
-║   guidance.                                                                    ║
-║                                                                                ║
-║ • Developed a mentorship system connecting students with seniors, reaching     ║
-║   100+ users.                                                                  ║
-║                                                                                ║
-║ • Implemented key features including AI Live Counselor, real counselor         ║
-║   appointments, portfolio/resume builder, opportunity posts, and private chats.║
-║                                                                                ║
-║ • Built full-stack using HTML, CSS, JavaScript, Node.js, and SQL.              ║
-║                                                                                ║
-║ • Fostered an active student community for peer-to-peer learning and           ║
-║   experience sharing.                                                          ║
-║                                                                                ║
-║ • Presented at GITEX                                                           ║
-║                                                                                ║
-║ • Project concluded after its initial pilot phase, yielding valuable insights  ║
-║   from early users.                                                            ║
-║                                                                                ║
-╚════════════════════════════════════════════════════════════════════════════════╝                                 
+                    },
+                    'student2success.txt':{
+                    type: 'file',
+                    content:`
+Project Name: Student2Success (S2S)
+March 2024 - May 2025
+
+• Co-founded a mentorship platform to empower students with personalized guidance.
+
+• Developed a mentorship system connecting students with seniors, reaching 100+ users.
+
+• Implemented key features including AI Live Counselor, real counselor appointments, portfolio/resume builder, opportunity posts, and private chats.
+
+• Built full-stack using HTML, CSS, JavaScript, Node.js, and SQL.
+
+• Fostered an active student community for peer-to-peer learning and experience sharing.
+
+• Presented at GITEX
+
+• Project concluded after its initial pilot phase, yielding valuable insights from early users.
+
 `
+                    }
+                  }
                 },
+                ComputerVision: {
+                  type: 'dir',
+                  children: {
+                    'bus-logging-sys.txt':{
+                    type: 'file',
+                    content:`
+Bus Logging System
+A QR code-based bus logging system built with Python, OpenCV, and Firebase, originally developed for GEMS Modern Academy to track bus entries and exits in real-time.
+
+• Real-time bus scanning using QR codes via camera (main.py) and logging of entry/exit.
+• Automatic log creation and upload to Firebase Firestore using uploader.py.
+• Web dashboard (app.py) built with Flask to view logs, filter/export data, and flag late buses (Entry after 7:45 AM → Late In; Exit after 3:20 PM → Late Out).
+• QR code generation for buses using qrcode_generator/codeGen.py.
+• Data stored in Firestore (bus_logs collection) with fields: BusLicense, BusNo, DataTime, Date, Status, Time.
+• Streamlined workflow for school transport management and analytics.
+
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/BusLoggingSystem', '_blank')">https://github.com/JishnuSetia/BusLoggingSystem</span>
+
+`
+                    }
+                  }
+                },
+                Games: {
+                  type: 'dir',
+                  children: {
+                    'alternative-alphabet.txt':{
+                    type: 'file',
+                    content:`
+Alternative Alphabet 
+
+A gamified version of the original Alternative Alphabet card game, designed to promote mental health awareness among young adults.
+
+• Java Edition: Developed in Java; based on the original card game by GEMS Education.
+• Web Edition: Fully playable online with interactive UI.
+• Players engage with prompts from the alternative alphabet to encourage cognitive engagement and mental health awareness.
+• Credits: GEMS Education for the Original Card Game. Built By Me.
+• Project License: No License, all rights reserved.
+
+Web Game: <span class="link" onclick="window.open('https://alternative-alphabet-jishnu-setia.surge.sh/', '_blank')">https://alternative-alphabet-jishnu-setia.surge.sh/</span>
+Java Edition Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/AlternativeAlphabet-JavaEdition', '_blank')">https://github.com/JishnuSetia/AlternativeAlphabet-JavaEdition</span>
+Web Edition Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/AlternativeAlphabet-WebEdition', '_blank')">https://github.com/JishnuSetia/AlternativeAlphabet-WebEdition</span>
+
+`
+                    }
+                  }
+                }
               }
             },
             socials: {
