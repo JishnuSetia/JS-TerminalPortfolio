@@ -729,7 +729,89 @@ A QR code-based bus logging system built with Python, OpenCV, and Firebase, orig
 Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/BusLoggingSystem', '_blank')">https://github.com/JishnuSetia/BusLoggingSystem</span>
 
 `
+                    },
+                    'object-detection.txt': {
+                      type: 'file',
+                      content: `
+Object Detection
+
+A real-time computer vision project for detecting and localizing objects in images and video streams using YOLOv5.
+
+• Developed an end-to-end object detection pipeline that processes camera streams or video input, drawing bounding boxes with class labels for detected objects.
+• Optimized inference workflows for efficient performance across varied datasets and real-world scenarios.
+• Modular architecture allows easy integration of custom models and additional object classes.
+• Demonstrates practical applications in automation, surveillance, and intelligent systems requiring real-time object identification.
+• Project License: No License, all rights reserved.
+
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/ObjectDetection', '_blank')">https://github.com/JishnuSetia/ObjectDetection</span>
+
+`
                     }
+
+                  }
+                },
+                Utilities: {
+                  type: 'dir',
+                  children:{
+                    'js-notepad.txt': {
+                      type: 'file',
+                      content: `
+Notepad by Jishnu v1.0 (Java Edition)
+
+A simple Notepad application built in Java with a graphical user interface for creating, editing, and saving text files.
+
+• Features include opening, editing, and saving text files with basic GUI text editor functionality.
+• Keyboard shortcuts handled via KeyHandler.java for a smooth user experience.
+• Hidden surprise: users can customize the Notepad with stickers and small UI enhancements for fun (not mentioned in the README!).
+• Project License: No License, all rights reserved.
+
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/JS-Notepad', '_blank')">https://github.com/JishnuSetia/JS-Notepad</span>
+
+`
+                    }
+
+                  }
+                },
+                Websites: {
+                  type: 'dir',
+                  children: {
+                    'gma-eco-club-website.txt': {
+                      type: 'file',
+                      content: `
+GMA Nature Nurturers Website
+
+A website for GEMS Modern Academy's Eco Club to showcase activities, events, and environmental initiatives.
+
+• Responsive website designed for the Eco Club.
+• Displays events, competitions, and club initiatives.
+• Engaging design with interactive elements.
+• Tech Stack: HTML, CSS, JavaScript.
+• Project License: No License, all rights reserved.
+
+Live Site: <span class="link" onclick="window.open('https://gmanaturenurturers.surge.sh/', '_blank')">https://gmanaturenurturers.surge.sh/</span>
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/GMA-EcoClubWebsite', '_blank')">https://github.com/JishnuSetia/GMA-EcoClubWebsite</span>
+
+`
+                    },
+                    'js-terminal-portfolio.txt': {
+                      type: 'file',
+                      content: `
+JS Terminal Portfolio
+
+An interactive, command-driven portfolio built entirely with JavaScript, HTML, and CSS. Designed to mimic a real terminal shell with a custom file system and personalized content.
+
+• Fully interactive terminal UI with a wide range of commands to explore personal info (about, skills, education, awards, projects, socials).
+• Includes hidden easter eggs for playful surprises and interactive exploration.
+• Custom file system structure with realistic Linux directories and content files for projects, skills, and experience.
+• Dynamic theme switching, ASCII art, and terminal-style responses enhance user experience.
+• Tech Stack: JavaScript, HTML, CSS; runs entirely client-side.
+• Project License: No License, all rights reserved.
+
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/JS-TerminalPortfolio', '_blank')">https://github.com/JishnuSetia/JS-TerminalPortfolio</span>
+
+`
+                    }
+
                   }
                 },
                 Games: {
@@ -751,6 +833,38 @@ A gamified version of the original Alternative Alphabet card game, designed to p
 Web Game: <span class="link" onclick="window.open('https://alternative-alphabet-jishnu-setia.surge.sh/', '_blank')">https://alternative-alphabet-jishnu-setia.surge.sh/</span>
 Java Edition Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/AlternativeAlphabet-JavaEdition', '_blank')">https://github.com/JishnuSetia/AlternativeAlphabet-JavaEdition</span>
 Web Edition Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/AlternativeAlphabet-WebEdition', '_blank')">https://github.com/JishnuSetia/AlternativeAlphabet-WebEdition</span>
+
+`
+                    },
+                    'snake-game-python.txt': {
+                      type: 'file',
+                      content: `
+Snake Game — Python Edition
+
+A classic Snake game implemented in Python with a simple, responsive UI and smooth controls.
+
+• Built using Python and Pygame for interactive gameplay and graphics.
+• Features include: snake movement, food spawning, score tracking, and game over conditions.
+• Designed to be intuitive and fun while demonstrating game logic and real-time input handling.
+• Project License: No License, all rights reserved.
+
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/SnakeGame-PythonEdition', '_blank')">https://github.com/JishnuSetia/SnakeGame-PythonEdition</span>
+
+`
+                    },
+                    'hangman-java.txt': {
+  type: 'file',
+  content: `
+Hangman — Java Edition (GUI)
+
+A classic Hangman word-guessing game developed in Java with a graphical user interface.
+
+• Built using Java Swing; includes interactive GUI components for guessing letters, tracking lives, and displaying the word.
+• Features random word selection, visual feedback, and an intuitive interface for users.
+• Built as 10th Grade Computer Applications project.
+• Project License: No License, all rights reserved.
+
+Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/Hangman-JavaEdition', '_blank')">https://github.com/JishnuSetia/Hangman-JavaEdition</span>
 
 `
                     }
