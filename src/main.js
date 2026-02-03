@@ -10,24 +10,31 @@ const VFS = {
   name: '/',
   type: 'dir',
   children: {
-    bin: { type: 'dir', children: {
-      'whoami.exe': { type: 'file', content: 'Displays current user identity' },
-      'neofetch.sh': { type: 'file', content: 'Shows system info with cool logos' }
-    }},
-    boot: { type: 'dir', children: {
-      'kernel.img': { type: 'file', content: 'The imaginary kernel for your portfolio OS' },
-      'grub.cfg': { type: 'file', content: 'Bootloader config for fun' }
-    }},
-    dev: { type: 'dir', children: {
-      'tty0': { type: 'file', content: 'Virtual terminal 0' },
-      'null': { type: 'file', content: 'Nothing goes here 😎' }
-    }},
-    etc: { type: 'dir', children: {
-      'hosts': { type: 'file', content: '127.0.0.1 localhost\n::1 localhost' },
-      'motd.txt': { type: 'file', content: 'Welcome to Jishnu\'s Portfolio Terminal!' },
-      '.passwords.txt': {
-        type: 'file',
-        content:`
+    bin: {
+      type: 'dir', children: {
+        'whoami.exe': { type: 'file', content: 'Displays current user identity' },
+        'neofetch.sh': { type: 'file', content: 'Shows system info with cool logos' }
+      }
+    },
+    boot: {
+      type: 'dir', children: {
+        'kernel.img': { type: 'file', content: 'The imaginary kernel for your portfolio OS' },
+        'grub.cfg': { type: 'file', content: 'Bootloader config for fun' }
+      }
+    },
+    dev: {
+      type: 'dir', children: {
+        'tty0': { type: 'file', content: 'Virtual terminal 0' },
+        'null': { type: 'file', content: 'Nothing goes here 😎' }
+      }
+    },
+    etc: {
+      type: 'dir', children: {
+        'hosts': { type: 'file', content: '127.0.0.1 localhost\n::1 localhost' },
+        'motd.txt': { type: 'file', content: 'Welcome to Jishnu\'s Portfolio Terminal!' },
+        '.passwords.txt': {
+          type: 'file',
+          content: `
   <span class="ascii-logo2">
                                                                                                                                                                                                                                   
                                                                                                                                     %#@%@@@@@@@@@@@@@@@@@@%@*                                                                   
@@ -143,49 +150,76 @@ const VFS = {
                                                                                                                                                                                                                                 
   </span>
         `
+        }
       }
-    }},
-    lib: { type: 'dir', children: {
-      'libfun.so': { type: 'file', content: 'Fun shared library for easter eggs' }
-    }},
-    media: { type: 'dir', children: {
-      'coffee_cup.png': { type: 'file', content: 'ASCII coffee cup for devs' },
-      'cool_duck.png': { type: 'file', content: 'Duck with a hat' }
-    }},
-    mnt: { type: 'dir', children: {
-      'mount_here.txt': { type: 'file', content: 'Nothing mounted yet 😎' }
-    }},
-    opt: { type: 'dir', children: {
-      'extras': { type: 'dir', children: { 'fun.txt': { type: 'file', content: 'Extra fun files' } } }
-    }},
-    proc: { type: 'dir', children: {
-      'cpuinfo.txt': { type: 'file', content: 'Imaginary CPU: 9000 cores' },
-      'meminfo.txt': { type: 'file', content: 'RAM: infinite' }
-    }},
-    root: { type: 'dir', children: {
-      'secret.txt': { type: 'file', content: 'You are in root 😏' }
-    }},
-    run: { type: 'dir', children: {
-      'session.tmp': { type: 'file', content: 'Temporary session data' }
-    }},
-    sbin: { type: 'dir', children: {
-      'hack.sh': { type: 'file', content: 'Your fake hacking easter egg' }
-    }},
-    srv: { type: 'dir', children: {
-      'games/': { type: 'dir', children: { 'play.txt': { type: 'file', content: 'Pretend game server' } } }
-    }},
-    sys: { type: 'dir', children: {
-      'settings.sys': { type: 'file', content: 'System settings for fun' }
-    }},
-    tmp: { type: 'dir', children: {
-      'random.tmp': { type: 'file', content: 'Temporary randomness' }
-    }},
-    usr: { type: 'dir', children: {
-      'local/': { type: 'dir', children: { 'README.txt': { type: 'file', content: 'Local user stuff' } } }
-    }},
-    var: { type: 'dir', children: {
-      'log.txt': { type: 'file', content: 'All logs go here' }
-    }},
+    },
+    lib: {
+      type: 'dir', children: {
+        'libfun.so': { type: 'file', content: 'Fun shared library for easter eggs' }
+      }
+    },
+    media: {
+      type: 'dir', children: {
+        'coffee_cup.png': { type: 'file', content: 'ASCII coffee cup for devs' },
+        'cool_duck.png': { type: 'file', content: 'Duck with a hat' }
+      }
+    },
+    mnt: {
+      type: 'dir', children: {
+        'mount_here.txt': { type: 'file', content: 'Nothing mounted yet 😎' }
+      }
+    },
+    opt: {
+      type: 'dir', children: {
+        'extras': { type: 'dir', children: { 'fun.txt': { type: 'file', content: 'Extra fun files' } } }
+      }
+    },
+    proc: {
+      type: 'dir', children: {
+        'cpuinfo.txt': { type: 'file', content: 'Imaginary CPU: 9000 cores' },
+        'meminfo.txt': { type: 'file', content: 'RAM: infinite' }
+      }
+    },
+    root: {
+      type: 'dir', children: {
+        'secret.txt': { type: 'file', content: 'You are in root 😏' }
+      }
+    },
+    run: {
+      type: 'dir', children: {
+        'session.tmp': { type: 'file', content: 'Temporary session data' }
+      }
+    },
+    sbin: {
+      type: 'dir', children: {
+        'hack.sh': { type: 'file', content: 'Your fake hacking easter egg' }
+      }
+    },
+    srv: {
+      type: 'dir', children: {
+        'games/': { type: 'dir', children: { 'play.txt': { type: 'file', content: 'Pretend game server' } } }
+      }
+    },
+    sys: {
+      type: 'dir', children: {
+        'settings.sys': { type: 'file', content: 'System settings for fun' }
+      }
+    },
+    tmp: {
+      type: 'dir', children: {
+        'random.tmp': { type: 'file', content: 'Temporary randomness' }
+      }
+    },
+    usr: {
+      type: 'dir', children: {
+        'local/': { type: 'dir', children: { 'README.txt': { type: 'file', content: 'Local user stuff' } } }
+      }
+    },
+    var: {
+      type: 'dir', children: {
+        'log.txt': { type: 'file', content: 'All logs go here' }
+      }
+    },
     special: {
       type: 'dir',
       children: {
@@ -219,7 +253,7 @@ const VFS = {
             },
             'experience.txt': {
               type: 'file',
-              content:`
+              content: `
 Experience:
 
 Intern                                                    July 2025 
@@ -509,7 +543,7 @@ High School Diploma
               type: 'file',
               content: "\nUniversity of Waterloo - Waterloo, Ontario\n• President's Scholarship, Aug 2025\n\nGEMS Modern Academy - Dubai, UAE\n• Best Pupil Award 2024-25, May 2025\n• Sanjay Gupta Award for Innovation & Entrepreneurship 2023-24, May 2024\n• 1st Place - Project Prism (Innovation & Entrepreneurship), Nov 2023\n• 2nd Place - GMA Hackathon, Aug 2022\n• 2nd Place - HackAProb, Aug 2020\n\nGEMS Our Own English High School - Sharjah, UAE\n• 3rd Place - Innotech Interschool Digital Fest (Web Design), Oct 2024\n\nDecoding Data Science - Dubai, UAE\n• Top 20 Winner - Building AI Applications Challenge, Jun 2025\n• Weekly Hackathon Winner, Feb 2024\n\nRu'ya Next Founders - Dubai, UAE\n• 1st Place - Ru'ya Careers Next Founders Competition, Sep 2023\n\nCurtin University - Dubai, UAE\n• Semi-Finalist - Hackathon, May 2023\n\nNASA Space Apps - Dubai, UAE\n• Top 48 UAE - NASA Space Apps Challenge, Oct 2022\n\nDrone In Schools - Dubai, UAE\n• Finalist - Teens' Next Big Idea Global Drone Competition, Jun 2021\n\n"
             },
-            'publications.txt':{
+            'publications.txt': {
               type: 'file',
               content: `\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Explainable AI: Methods and Applications”, Vol. 8, Issue 10, 2023\n  <span class="link" onclick="window.open('https://ijisrt.com/explainable-ai-methods-and-applications', '_blank')">https://ijisrt.com/explainable-ai-methods-and-applications</span>\n\nInternational Journal of Innovative Science and Research Technology (IJISRT)\n• “Revolutionizing Logistics and Fleet Management: The Impact of EunoKinetiX on Operational Efficiency and Societal Dynamics”, Vol. 9, Issue 9, 2024\n  <span class="link" onclick="window.open('https://www.ijisrt.com/revolutionizing-logistics-and-fleet-management-a-comprehensive-analysis-of-the-impact-of-eunokinetix-on-operational-efficiency-and-societal-dynamics', '_blank')">https://www.ijisrt.com/revolutionizing-logistics-and-fleet-management-a-comprehensive-analysis-of-the-impact-of-eunokinetix-on-operational-efficiency-and-societal-dynamics</span>\n\n`
             },
@@ -661,9 +695,9 @@ Pro tip: The secret to high-performing code is... lots of coffee, good music, an
                 SaaS: {
                   type: 'dir',
                   children: {
-                    'eunokinetix.txt':{
-                    type: 'file',
-                    content:`
+                    'eunokinetix.txt': {
+                      type: 'file',
+                      content: `
 Project Name: EunoKinetiX
 March 2023 - April 2025
 
@@ -686,9 +720,9 @@ March 2023 - April 2025
 
 `
                     },
-                    'student2success.txt':{
-                    type: 'file',
-                    content:`
+                    'student2success.txt': {
+                      type: 'file',
+                      content: `
 Project Name: Student2Success (S2S)
 March 2024 - May 2025
 
@@ -713,9 +747,9 @@ March 2024 - May 2025
                 ComputerVision: {
                   type: 'dir',
                   children: {
-                    'bus-logging-sys.txt':{
-                    type: 'file',
-                    content:`
+                    'bus-logging-sys.txt': {
+                      type: 'file',
+                      content: `
 Bus Logging System
 A QR code-based bus logging system built with Python, OpenCV, and Firebase, originally developed for GEMS Modern Academy to track bus entries and exits in real-time.
 
@@ -752,7 +786,7 @@ Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/
                 },
                 Utilities: {
                   type: 'dir',
-                  children:{
+                  children: {
                     'js-notepad.txt': {
                       type: 'file',
                       content: `
@@ -817,9 +851,9 @@ Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/
                 Games: {
                   type: 'dir',
                   children: {
-                    'alternative-alphabet.txt':{
-                    type: 'file',
-                    content:`
+                    'alternative-alphabet.txt': {
+                      type: 'file',
+                      content: `
 Alternative Alphabet 
 
 A gamified version of the original Alternative Alphabet card game, designed to promote mental health awareness among young adults.
@@ -853,8 +887,8 @@ Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/
 `
                     },
                     'hangman-java.txt': {
-  type: 'file',
-  content: `
+                      type: 'file',
+                      content: `
 Hangman — Java Edition (GUI)
 
 A classic Hangman word-guessing game developed in Java with a graphical user interface.
@@ -876,8 +910,8 @@ Github: <span class="link" onclick="window.open('https://github.com/JishnuSetia/
               type: 'dir',
               children: {
                 'github.link': { type: 'link', url: 'https://github.com/jishnusetia', description: 'My GitHub Profile' },
-                'mail.txt': { 
-                  type: 'file', 
+                'mail.txt': {
+                  type: 'file',
                   content: `
 (\\_/)
 ( •_•)  "Psst… want to reach me? Here's the key:"
@@ -913,6 +947,39 @@ function getDir(path) {
 
 function getPathString() {
   return '/' + currentPath.join('/');
+}
+
+function resolvePath(pathStr) {
+  if (!pathStr) return null;
+
+  // Handle paths
+  let targetPath;
+  if (pathStr === '~') {
+    targetPath = ['home', 'guest'];
+  } else if (pathStr === '/') {
+    targetPath = [];
+  } else if (pathStr.startsWith('/')) {
+    targetPath = pathStr.split('/').filter(p => p !== '');
+  } else {
+    targetPath = [...currentPath, ...pathStr.split('/').filter(p => p !== '')];
+  }
+
+  // Resolve .. and .
+  const finalPath = [];
+  for (const part of targetPath) {
+    if (part === '.') continue;
+    if (part === '..') {
+      if (finalPath.length > 0) finalPath.pop();
+    } else {
+      finalPath.push(part);
+    }
+  }
+
+  return {
+    dir: getDir(finalPath.slice(0, -1)) || VFS,
+    name: finalPath[finalPath.length - 1],
+    fullPath: finalPath
+  };
 }
 
 const COMMANDS = {
@@ -1073,11 +1140,15 @@ const COMMANDS = {
     description: 'Display file content',
     execute: (args) => {
       if (!args[0]) return 'cat: missing file operand';
-      const dir = getDir(currentPath);
-      const file = dir.children[args[0]];
+
+      const resolved = resolvePath(args[0]);
+      if (!resolved || !resolved.dir) return `cat: ${args[0]}: No such file or directory`;
+
+      const file = resolved.dir.children ? resolved.dir.children[resolved.name] : null;
+
       if (file) {
         if (file.type === 'file') {
-          if (args[0] === 'about.txt') {
+          if (resolved.name === 'about.txt') {
             return `
 <div class="about-container">
   <img src="/me.jpg" class="about-image" alt="Jishnu Setia">
@@ -1219,7 +1290,7 @@ const COMMANDS = {
           document.body.setAttribute('data-theme', choice);
         }
         return `Theme changed to: ${choice}`;
-      }else{
+      } else {
         return `Error: '${choice}' is not a valid theme.\nAvailable themes: ${themes.join(', ')}`;
       }
     }
@@ -1776,7 +1847,7 @@ const LOGO5 = `
 </span>
 `
 
-const LOGO6=`
+const LOGO6 = `
 <span class="ascii-logo">
                     #+                                                ***                           
                   +@@@@@@%=                                         #@@@@@                          
@@ -1876,7 +1947,7 @@ function printToTerminal(text, isCommand = false) {
 }
 
 function showNeofetch() {
-  const logos = [LOGO,LOGO2,LOGO3,LOGO4,LOGO5,LOGO6];
+  const logos = [LOGO, LOGO2, LOGO3, LOGO4, LOGO5, LOGO6];
   const selectedLogo = logos[Math.floor(Math.random() * logos.length)];
   const neofetchContainer = `
     <div class="neofetch-container">
@@ -1936,9 +2007,10 @@ function handleTabCompletion() {
   } else {
     // Complete files/dirs or themes
     const cmd = parts[0].toLowerCase();
-    const partial = parts[parts.length - 1];
 
+    // Check for theme command first
     if (cmd === 'theme') {
+      const partial = parts[parts.length - 1];
       const themes = ['retro', 'matrix', 'dracula', 'nord', 'monokai', 'gruvbox', 'tokyonight', 'solarized'];
       const currentTheme = document.body.getAttribute('data-theme') || 'retro';
 
@@ -1970,32 +2042,68 @@ function handleTabCompletion() {
       return;
     }
 
-    const dir = getDir(currentPath);
-    if (dir && dir.children) {
-      let items = Object.keys(dir.children);
+    // Path completion logic
+    const token = parts[parts.length - 1];
+    let pathPrefix = '';
+    let searchPartial = token;
+    let scanDirObj = null;
 
-      // Filter based on command
-      if (cmd === 'cat') {
-        items = items.filter(i => dir.children[i].type !== 'dir');
-      } else if (cmd === 'cd') {
-        items = items.filter(i => dir.children[i].type === 'dir');
+    // 1. Identify Directory to Scan
+    const lastSlashIndex = token.lastIndexOf('/');
+    if (lastSlashIndex !== -1) {
+      pathPrefix = token.substring(0, lastSlashIndex + 1); // e.g., "bin/" or "/etc/"
+      searchPartial = token.substring(lastSlashIndex + 1);
+
+      const resolved = resolvePath(pathPrefix);
+      if (resolved) {
+        if (resolved.fullPath.length === 0) {
+          scanDirObj = VFS; // Root
+        } else if (resolved.dir && resolved.dir.children) {
+          scanDirObj = resolved.dir.children[resolved.name];
+        }
       }
+    } else {
+      // Current directory
+      scanDirObj = getDir(currentPath);
+    }
 
-      // Filter hidden files
-      if (!partial.startsWith('.')) {
-        items = items.filter(i => !i.startsWith('.'));
-      }
+    if (!scanDirObj || scanDirObj.type !== 'dir') return;
 
-      const matches = items.filter(i => i.startsWith(partial));
+    let items = Object.keys(scanDirObj.children || {});
 
-      if (matches.length === 1) {
-        parts[parts.length - 1] = matches[0];
-        input.value = parts.join(' ');
-      } else if (matches.length > 1) {
-        const matchText = matches.join('  ');
-        printToTerminal(trimmedInput(), true);
-        printToTerminal(matchText);
-      }
+    // 2. Filter Command constraints
+    // For 'cat', we now ALLOW directories so user can tab through them, but distinct them later?
+    // Actually, standard terminals let you tab complete directories even for 'cat', it just fails if you execute.
+    // So we don't filter out directories for 'cat'.
+
+    if (cmd === 'cd') {
+      items = items.filter(i => scanDirObj.children[i].type === 'dir');
+    }
+    // Logic for other commands: allow all valid paths
+
+    // 3. Filter Hidden
+    if (!searchPartial.startsWith('.')) {
+      items = items.filter(i => !i.startsWith('.'));
+    }
+
+    // 4. Find Matches
+    const matches = items.filter(i => i.startsWith(searchPartial));
+
+    // 5. Apply Completion
+    if (matches.length === 1) {
+      const matchName = matches[0];
+      const matchObj = scanDirObj.children[matchName];
+      const isDir = matchObj.type === 'dir';
+
+      parts[parts.length - 1] = pathPrefix + matchName + (isDir ? '/' : '');
+      input.value = parts.join(' ');
+    } else if (matches.length > 1) {
+      const matchText = matches.map(m => {
+        const isDir = scanDirObj.children[m].type === 'dir';
+        return m + (isDir ? '/' : '');
+      }).join('  ');
+      printToTerminal(trimmedInput(), true);
+      printToTerminal(matchText);
     }
   }
 }
@@ -2012,15 +2120,39 @@ window.addEventListener('load', () => {
 });
 
 const displayText = document.getElementById('display-text');
+const displayTextTrailing = document.getElementById('display-text-trailing');
+const cursor = document.getElementById('cursor');
 
 function updateDisplay() {
-  if (displayText) {
-    displayText.textContent = input.value;
-  }
+  if (!displayText || !cursor || !displayTextTrailing) return;
+
+  const val = input.value;
+  const match = val.match(/ /g);
+  // Calculate cursor position
+  const selectionStart = input.selectionStart;
+
+  const left = val.slice(0, selectionStart);
+  const char = val.slice(selectionStart, selectionStart + 1) || ' '; // Default to space if at end
+  const right = val.slice(selectionStart + 1);
+
+  displayText.textContent = left;
+  cursor.textContent = char;
+  displayTextTrailing.textContent = right;
 }
 
 // Input handling
-input.addEventListener('input', updateDisplay);
+// Update display on any action that changes value or cursor position
+['input', 'keydown', 'keyup', 'click', 'select', 'focus'].forEach(evt => {
+  input.addEventListener(evt, () => {
+    // frequent updates, verify safe
+    // setTimeout to ensure selectionStart is updated after keydown
+    if (evt === 'keydown') {
+      setTimeout(updateDisplay, 0);
+    } else {
+      updateDisplay();
+    }
+  });
+});
 
 input.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
@@ -2033,14 +2165,21 @@ input.addEventListener('keydown', (e) => {
     if (historyIndex > 0) {
       historyIndex--;
       input.value = commandHistory[historyIndex];
-      updateDisplay();
+      // Move cursor to end
+      setTimeout(() => {
+        input.selectionStart = input.selectionEnd = input.value.length;
+        updateDisplay();
+      }, 0);
     }
   } else if (e.key === 'ArrowDown') {
     e.preventDefault();
     if (historyIndex < commandHistory.length - 1) {
       historyIndex++;
       input.value = commandHistory[historyIndex];
-      updateDisplay();
+      setTimeout(() => {
+        input.selectionStart = input.selectionEnd = input.value.length;
+        updateDisplay();
+      }, 0);
     } else {
       historyIndex = commandHistory.length;
       input.value = '';
@@ -2054,6 +2193,9 @@ input.addEventListener('keydown', (e) => {
 });
 
 // Keep focus on input
-document.addEventListener('click', () => {
-  input.focus();
+document.addEventListener('click', (e) => {
+  // Check if click is on a link or interactive element to avoid stealing focus
+  if (e.target.tagName !== 'A' && !e.target.closest('.link')) {
+    input.focus();
+  }
 });

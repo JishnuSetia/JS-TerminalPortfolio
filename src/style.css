@@ -172,7 +172,8 @@ body::before {
   position: relative;
 }
 
-#display-text {
+#display-text,
+#display-text-trailing {
   white-space: pre-wrap;
   word-break: break-all;
   font-size: 14px;
@@ -180,17 +181,26 @@ body::before {
 }
 
 #cursor {
-  width: 8px;
+  display: inline-block;
+  min-width: 8px;
+  /* Ensure visible even if empty */
   height: 1.1em;
   background-color: var(--text-color);
+  color: var(--bg-color);
+  /* Invert text color inside cursor */
   box-shadow: 0 0 5px var(--glow-color);
   margin-left: 0px;
   animation: blink 0.8s steps(2, start) infinite;
+  vertical-align: text-bottom;
+  white-space: pre;
+  /* Preserve spaces inside cursor */
 }
 
 @keyframes blink {
   to {
-    visibility: hidden;
+    visibility: visible;
+    /* Prevent fully disappearing, maybe just dim? Or keep standard blink */
+    opacity: 0;
   }
 }
 
